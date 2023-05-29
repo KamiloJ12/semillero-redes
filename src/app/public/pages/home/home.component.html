@@ -1,2 +1,132 @@
-<app-navbar></app-navbar>
-<h2>Home</h2>
+
+<app-carousel></app-carousel>
+
+<div class="surface-ground mx-0 grid px-4 py-8 md:px-6 lg:px-8 align-items-center">
+    <div class="col-12 lg:col-6 flex justify-content-center align-items-center">
+        <img src="../../../../assets/images/logo_SIREDSE.png" width="380" alt="Logo del semillero">
+    </div>
+    <div class="col-12 lg:col-6">
+        <div class="pb-5 mb-4 border-bottom-1 border-bluegray-600">
+            <h1 class="text-900 font-bold mb-3">Mision</h1>
+            <p class="line-height-3 text-700">
+                {{ semillero.mision }}
+            </p>
+        </div>
+        <div>
+            <h1 class="text-900 font-bold mb-3">Vision</h1>
+            <p class="line-height-3 text-700">
+                {{ semillero.vision }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="px-4 py-8 md:px-6 lg:px-8">
+    <h2 class="text-900 font-bold text-5xl mb-6">Eventos Recientes</h2>
+    <div class="flex flex-wrap"> 
+        <div *ngIf="eventos[0]" class="w-full xl:w-6 pr-0 xl:pr-6 mb-5 xl:mb-0">
+            <img [src]="eventos[0].imagen" alt="Image" class="w-full">
+            <div class="flex align-items-center mt-4">
+                <img [src]="eventos[0].divulgador.imagen" width="28" height="28"
+                    class="mr-3 flex-shrink-0">
+                <span class="text-900 font-medium text-lg white-space-nowrap">
+                    {{ eventos[0].divulgador.nombre }}
+                </span>
+                <span class="text-500 font-medium text-lg mx-3">|</span>
+                <span class="text-500 font-medium text-lg white-space-nowrap">
+                    {{ eventos[0].fecha_inicio | date:'dd/MM/yy' }} - {{ eventos[0].fecha_fin | date:'dd/MM/yy' }}
+                </span>
+            </div>
+            <div class="text-900 font-bold text-3xl mt-4">
+                {{ eventos[0].titulo }}
+            </div>
+            <p class="line-height-3 text-700 my-4">
+                {{ eventos[0].descripcion | slice:0:150 }}
+            </p>
+            <div class="flex align-items-center">
+                <span class="text-600 text-sm font-medium">{{ calcularTiempo(eventos[0].createdAt) }}</span>
+                <span class="text-600 font-medium text-sm mx-3">|</span>
+                <span class="text-sm block py-1 px-2 border-round mr-3" [class]="generarColorAleatorio()" *ngFor="let tag of eventos[0].tags">{{ tag.nombre }}</span>
+            </div>
+        </div>
+
+        <div class="w-full xl:w-6">
+            <ng-container *ngFor="let evento of eventos; let i=index">
+                <div *ngIf="i > 0" [ngStyle]="{ 'mb-8 mt-8 xl:mb-6 xl:mt-0':i != eventos.length-1 }" class="flex flex-wrap align-items-start">
+                    <div class="w-full xl:w-6 pr-0 xl:pr-4 mb-4 xl:mb-0">
+                        <img [src]="evento.imagen" alt="Image" class="w-full">
+                    </div>
+                    <div class="w-full xl:w-6">
+                        <div class="flex align-items-center">
+                            <img [src]="evento.divulgador.imagen" width="28" height="28"
+                                class="mr-3 flex-shrink-0">
+                            <span class="text-900 font-medium text-lg white-space-nowrap">
+                                {{ evento.divulgador.nombre }}
+                            </span>
+                            <span class="text-500 font-medium text-lg mx-3">|</span>
+                            <span class="text-500 font-medium text-lg white-space-nowrap">
+                                {{ evento.fecha_inicio | date:'dd/MM/yy' }} - {{ evento.fecha_fin | date:'dd/MM/yy' }}
+                            </span>
+                        </div>
+                        <div class="text-900 font-bold text-3xl mt-4">
+                            {{ evento.titulo }}
+                        </div>
+                        <p class="line-height-3 text-700 my-4">
+                            {{ evento.descripcion | slice:0:150 }}
+                        </p>
+                        <div class="flex align-items-center">
+                            <span class="text-600 text-sm font-medium">{{ calcularTiempo(evento.createdAt) }}</span>
+                            <span class="text-600 font-medium text-sm mx-3">|</span>
+                            <span class="text-sm block py-1 px-2 border-round mr-3" [class]="generarColorAleatorio()" *ngFor="let tag of eventos[0].tags">{{ tag.nombre }}</span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="px-4 py-8 md:px-6 lg:px-8">
+    <h2 class="text-900 font-bold text-5xl mb-6">Proyectos recientes</h2>
+    <div class="grid">
+
+        <div class="col-12 lg:col-4 p-4" *ngFor="let proyecto of proyectos">
+            <div class="border-top-3 border-blue-600">   
+            </div>
+            <div class="text-blue-600 font-medium my-2">
+                {{ proyecto.linea_investigacion }}
+            </div>
+            <div class="text-900 font-medium text-xl line-height-3 mb-4">
+                {{ proyecto.nombre }}
+            </div>
+            <div class="text-700 line-height-3">
+                {{ proyecto.descripcion | slice:0:150 }} 
+            </div>
+            <div class="flex mt-4">
+                <p-avatar image="proyecto.divulgador.imagen" shape="circle">
+                    <div class="p-avatar p-component p-avatar-image p-avatar-circle">
+                        <img src="proyecto.divulgador.imagen" class="ng-star-inserted">
+                    </div>
+                </p-avatar>
+                <div class="ml-2">
+                    <div class="text-sm font-bold text-900 mb-1">{{ proyecto.divulgador.nombre }}</div>
+                    <div class="text-sm flex align-items-center text-700">
+                        <i class="pi pi-calendar mr-1 text-sm"></i>
+                    <span>{{ proyecto.updatedAt | date:'dd/MM/yy' }}</span>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    
+</div>
+
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+    <h2 class="text-900 font-bold text-5xl mb-6">Miembros</h2>
+    <div class="flex justify-content-center lg:justify-content-between flex-wrap">
+        <ng-container *ngFor="let miembro of miembros">
+            <app-miembro-card [miembro]="miembro"></app-miembro-card>
+        </ng-container>
+    </div>
+</div>

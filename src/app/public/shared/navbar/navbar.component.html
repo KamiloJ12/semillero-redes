@@ -1,1 +1,16 @@
-<h1>Navabar</h1>
+<nav class="bg-red-600 py-3 px-6 shadow-2 flex align-items-center justify-content-between relative">
+    <a class="text-white text-4xl mr-8 flex align-items-center font-bold">
+        <img src="../../../../assets/images/svg.svg" width="50" class="mr-2 text-white">
+        SIREDSE
+    </a>
+    <div class="align-items-center flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 top-100 z-1 shadow-2 lg:shadow-none border-1 lg:border-none border-red-800">
+        <ul class="list-none p-0 m-0 flex lg:align-items-center elect-one flex-column lg:flex-row">
+            <li *ngFor="let item of menu">
+                <a pRipple [routerLink]="item.routerLink" class="text-base no-underline flex mx-2 px-3 py-2 align-items-center text-white hover:text-white hover:bg-red-700 font-medium border-round cursor-pointer transition-colors transition-duration-150">
+                    {{ item.label |  uppercase }}
+                </a>
+            </li>
+        </ul>
+        <p-button routerLink="/admin/login" label="INCIAR SESION" styleClass="text-white text-base p-button-danger p-button-text"></p-button>
+    </div>
+</nav>

@@ -1,0 +1,42 @@
+<nav class="bg-red-600 relative px-6">
+    <div class="py-3 lg:p-2 flex align-items-center justify-content-between lg:static border-bottom-none lg:border-bottom-1 border-red-600" style="min-height: 81px;">
+        <!-- <img src="./assets/images/logo_SIREDSE_2.png" alt="logo" width="90" class="bg-white border-round-xl"> -->
+        <h3 class="text-white text-5xl">SIREDSE</h3>
+        <div class="flex aling-items-center">
+            <div pRipple class="block text-white border-round cursor-pointer lg:hidden transition-colors transition-duration-150"
+                    (click)="hideMenu = !hideMenu">
+                <i class="pi pi-bars text-4xl"></i>
+            </div>
+        </div>
+        <div class="lg:block absolute lg:static lg:w-auto w-full bg-red-600 left-0 top-100 z-1 shadown-2 lg:shadown-none hidden">
+            <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row border-top-1 border-white lg:border-top-none">
+                <li>
+                    <div pRipple class="flex px-6 p-3 lg:px-3 align-items-center text-white hover:text-white hover:bg-red-700 font-medium border-round cursor-pointer transition-colors transition-duration-150">
+                        <img src="{{ ruta + '/' + usuario.imagen }}" class="mr-3 lg:mr-0 w-2rem h-2rem" alt="">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="py-2 px-6 lg:px-0 shadown-2 lg:block absolute lg:static lg-auto w-full bg-red-600 left-0 top-100 z-1 shadown-2" [ngClass]="{ 'hidden': hideMenu }">
+        <ul class="list-none p-0 m-0 flex lg:align-items-center flex-column lg:flex-row select-none">
+            <li *ngFor="let item of menu">
+                <a pRipple [routerLink]="item.routerLink" class="no-underline flex p-3 align-items-center text-white hover:text-white hover:bg-red-700 font-medium border-round cursor-pointer transition-colors transition-duration-150">
+                    <i class="{{ item.icon }} mr-2"></i>
+                    {{ item.label }}
+                </a>
+            </li>
+            <li class="border-top-1 border-white lg:hidden">
+                <div pRipple class="flex p-3 align-items-center text-red-600 hover:text-white hover:bg-red-700 font-medium border-round cursor-pointer transition-colors transition-duration-150">
+                    <img src="{{ ruta + '/' + usuario.imagen }}" class="mr-3 w-2rem h-2rem" [alt]="usuario.nombre">
+                    <div class="block">
+                        <div class="text-white font-medium">
+                            {{ usuario.nombre }}
+                        </div>
+                        <span class="text-gray-500 font-medium text-sm">{{ usuario.rol }}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

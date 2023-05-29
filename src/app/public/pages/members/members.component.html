@@ -1,0 +1,8 @@
+<div class="px-4 py-8 md:px-6 lg:px-8">
+    <h2 class="text-900 font-bold text-5xl mb-6">Miembros</h2>
+    <div class="flex justify-content-center lg:justify-content-between flex-wrap">
+        <ng-container *ngFor="let miembro of miembros">
+            <app-miembro-card [miembro]="miembro"></app-miembro-card>
+        </ng-container>
+    </div>
+</div>

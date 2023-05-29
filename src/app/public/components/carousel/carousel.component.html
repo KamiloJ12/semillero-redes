@@ -1,0 +1,16 @@
+<p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3500" styleClass="relative" indicatorsContentClass="realtive">
+    <ng-template let-slide pTemplate="item">
+        <ng-container [ngSwitch]="slide.tipo">
+            <img *ngSwitchCase="'imagen'" class="w-full" [src]="slide.datos" alt="Imagen del carrusel">
+            <div *ngSwitchCase="'imagenTexto'">
+                <img [src]="slide.datos.imagen" alt="Imagen del carrusel" class="w-full relative">
+                <div class="caption px-8 w-full">
+                  <h3 [style]="slide.estilos?.titulo" class="title-slide text-7xl">{{ slide.datos.titulo }}</h3>
+                  <p [style]="slide.estilos?.texto" class="text-slide text-4xl">{{ slide.datos.texto }}</p>
+                  <button [style]="slide.estilos?.boton" class="button-slide">{{ slide.datos.boton }}</button>
+                </div>
+              </div>
+              <video *ngSwitchCase="'video'" class="w-full" [src]="slide.datos" controls autoplay></video>
+        </ng-container>
+    </ng-template>
+</p-carousel>
